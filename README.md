@@ -30,3 +30,5 @@ python extract_ip_url.py -r 123.docx -o output.xlsx
 ```
 3、运行结果
 提取结果将保存到指定路径的 Excel 文件中，表格中两列分别为 IP 和 URL。
+![image](https://github.com/user-attachments/assets/194c4587-da51-475c-9ca6-2d25e910b513)
+
