@@ -1,34 +1,43 @@
-# 多格式文件 URL 和 IP 提取器
-能够从多种常见文件格式（包括 TXT、CSV、Excel 和 Word）中提取 URL 和 IP 地址，并进行简单处理，输出到结果文件中。方便渗透测试时从客户提供的杂乱的文件中提取URL和IP，并去除重复数据。
-## 主要功能包括：
+# IP URL domain提取工具
+能够从提供的office文档中提取IP、URL、DOMAIN信息。方便渗透测试。
 
-多文件格式支持：可以处理 TXT、CSV、Excel (.xlsx/.xls) 和 Word (.docx) 文件。
-数据去重：自动去除重复的 IP 和 URL，输出无冗余的结果。
-结果保存：提取结果保存为 Excel 文件，便于后续分析和使用。
+输出：
+IPv4 → ip.txt
+URL  → url.txt
+域名 → domain.txt
+提取结果已去重、排序，可直接导入漏扫/渗透工具
 
-适用于安全分析、日志审计、数据处理等场景，是网络安全、开发人员等实用辅助工具。
+适用于渗透测试、安全分析、数据处理等场景，是网络安全、开发人员等实用辅助工具。
 
 ## 安装说明
-安装依赖环境
-运行以下命令安装项目所需依赖：
+安装依赖：
 ```bash
 pip install -r requirements.txt
 ```
 ## 使用说明
+将脚本 extract_target.py 放到与目标文件同一目录：
+<img width="426" height="120" alt="image" src="https://github.com/user-attachments/assets/97048d84-e9ab-41bc-8f90-7d97d471dac1" />
 1、基本命令
 ```bash
-python extract_ip_url.py -r 123.xlsx
+python extract_target.py
 ```
-示例：
+运行结束后，当前目录得到：
 ```bash
-python extract_ip_url.py -r 123.docx -o output.xlsx
+ip.txt      # 每行一个 IPv4
+url.txt     # 每行一个 URL
+domain.txt  # 每行一个 domain
 ```
-2、参数说明：
+2、扩展：
+打开脚本，在「正则区域」添加自己的正则，例如提取邮箱：
 ```bash
--r 或 --read：必选参数，指定需要处理的文件路径。
--o 或 --output：可选参数，指定保存结果的文件路径，默认保存为与输入文件同名的 _result.xlsx。
+EMAIL_RE = re.compile(r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b')
 ```
+然后在主逻辑里像 ip_pool 一样再建一个 email_pool 即可。
 3、运行结果
-提取结果将保存到指定路径的 Excel 文件中，表格中两列分别为 IP 和 URL。
-![image](https://github.com/user-attachments/assets/194c4587-da51-475c-9ca6-2d25e910b513)
+<img width="1383" height="321" alt="image" src="https://github.com/user-attachments/assets/b9eefb0d-127a-40fe-81bd-3372da013385" />
+<img width="660" height="243" alt="image" src="https://github.com/user-attachments/assets/1a001fc8-cd3e-411d-936b-82eee824b1cb" />
+4、免责声明
+本工具仅供合法授权的渗透测试与安全研究使用。
+一键运行，结果立得，祝各位测试顺利！
+
 
